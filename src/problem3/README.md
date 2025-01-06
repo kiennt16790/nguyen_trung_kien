@@ -120,7 +120,9 @@ const formattedBalances = sortedBalances.map((balance: WalletBalance) => {
 - I also merge logic to add extra info for balances to prevent multiple loops.
   [New code](https://github.com/kiennt16790/nguyen_trung_kien/blob/master/src/problem3/src/components/WalletPage.tsx#L18)
 
-### 6. The `WalletRow` component is using index as the `key` prop, which may cause performance issues if the list item is changed/removed. I updated the key to `${balance.blockchain}-${balance.currency}` , assuming that `currency` is unique for each blockchain
+### 6. Using index as the `key` prop in the `WalletRow` component
+
+The `WalletRow` component is using index as the `key` prop, which may cause performance issues if the list item is changed/removed. I updated the key to `${balance.blockchain}-${balance.currency}` , assuming that `currency` is unique for each blockchain. [New code](https://github.com/kiennt16790/nguyen_trung_kien/blob/master/src/problem3/src/components/WalletPage.tsx#L44)
 
 ```typescript
 const rows = sortedBalances.map((balance: FormattedWalletBalance, index: number) => {
