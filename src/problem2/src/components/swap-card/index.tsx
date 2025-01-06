@@ -14,6 +14,7 @@ import { Button } from '../ui/button';
 import { TransactionExecution } from '../transaction-execution';
 import { twMerge } from 'tailwind-merge';
 import { useAppState, useSetAppState } from '@/hooks/useAppState';
+
 const DEFAULT_SLIPPAGE = 0.5;
 const DEFAULT_TOKEN_FROM_VALUE = BigInt(1 * 10 ** 18);
 
@@ -28,7 +29,6 @@ export const SwapCard = () => {
   );
 
   const { data: appState } = useAppState();
-
   const setAppState = useSetAppState();
 
   const { tokens, isLoading: isTokenLoading } = useTokenWithBalance(
@@ -92,6 +92,7 @@ export const SwapCard = () => {
   };
 
   const onSwap = () => {
+    // set app state to true to show transaction execution
     setAppState({ isExecutingSwap: true });
   };
 

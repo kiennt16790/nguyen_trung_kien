@@ -1,8 +1,9 @@
+import { useState, useRef } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import { TokenWithBalance } from '@/services/odos/type';
 import { TokenSelect } from './token-select';
 import { Skeleton } from '../../ui/skeleton';
 import { TokenIcon } from './token-icon';
-import { useState } from 'react';
 import {
   toFormattedBalance,
   toFormattedUsdValue,
@@ -39,10 +40,19 @@ export const TokenCard = ({
   error,
 }: Props) => {
   const [openTokenSelect, setOpenTokenSelect] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Debounce the token value updates
+  const debounced = useDebouncedCallback((value: string) => {
+    setTokenValue?.(toTokenUnits(value, selectedToken?.decimals ?? 0));
+  }, 500);
 
   const onMaxClick = () => {
     if (!selectedToken) return;
     setTokenValue?.(BigInt(selectedToken.balance));
+    if (inputRef.current) {
+      inputRef.current.value = selectedToken.formattedBalance.toString();
+    }
   };
 
   return (
@@ -52,15 +62,9 @@ export const TokenCard = ({
           <div>
             <Input
               className="border-none text-xl md:text-xl -ml-4"
-              value={toFormattedBalance(
-                tokenValue,
-                selectedToken?.decimals ?? 0,
-              )}
-              onChange={(e) =>
-                setTokenValue?.(
-                  toTokenUnits(e.target.value, selectedToken?.decimals ?? 0),
-                )
-              }
+              defaultValue={1}
+              onChange={(e) => debounced(e.target.value)}
+              ref={inputRef}
             />
             {error && (
               <div className="text-red-500 text-sm mt-2 -ml-2">{error}</div>
