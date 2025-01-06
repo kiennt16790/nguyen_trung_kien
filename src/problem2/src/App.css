@@ -1,0 +1,10 @@
+.tw-connect-wallet {
+  color: #fff !important;
+  height: 40px !important;
+  background: linear-gradient(to right, #3b82f6, #a855f7) !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.tw-connect-wallet:hover {
+  background: linear-gradient(to right, #2563eb, #9333ea);
+}
