@@ -5,7 +5,7 @@ import bnb from '../assets/bnb.png';
 
 export const Swap = () => {
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-120px)] flex-col">
+    <div className="flex justify-center items-center flex-col">
       <SwapCard />
       {/* random position */}
       <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 top-[100px] hidden lg:block">
